@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 class Hashtag extends Sequelize.Model {
   static initiate(sequelize) {
     Hashtag.init({
-      title: {
+      title: { // 해시태그 이름만 
         type: Sequelize.STRING(15),
         allowNull: false,
         unique: true,

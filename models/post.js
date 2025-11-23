@@ -4,7 +4,7 @@ class Post extends Sequelize.Model {
   static initiate(sequelize) {
     Post.init({
       content: {
-        type: Sequelize.STRING(140),
+        type: Sequelize.STRING(140), // 게시글 글자 수 
         allowNull: false,
       },
       img: {
@@ -25,7 +25,7 @@ class Post extends Sequelize.Model {
   
   static associate(db) {
     db.Post.belongsTo(db.User);
-    db.Post.belongsToMany(db.Hashtag, {through: 'PostHashtag'});
+    db.Post.belongsToMany(db.Hashtag, {through: 'PostHashtag'}); // 게시물이랑 해시태그도 N:N관계
   }
 }
 

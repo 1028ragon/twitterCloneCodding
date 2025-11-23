@@ -21,30 +21,30 @@ class User extends Sequelize.Model {
         allowNull: false,
         defaultValue: 'local',
       },
-      snsId: { // 카카오 로그인 전용
+      snsId: { // 카카오 로그인 전용, email로 가입한 사람은 local임, 카카오는 provider로
         type: Sequelize.STRING(30),
         allowNull: true,
       },
     }, {
       sequelize,
-      timestamps: true,
-      underscored: false,
+      timestamps: true, // ceatedAt, updatedAt
+      underscored: false, // created_at, updatedAt
       modelName: 'User',
       tableName: 'users',
-      paranoid: true,
-      charset: 'utf8',
+      paranoid: true, // deletedAt -> 유저 삭제일 // sofet delete
+      charset: 'utf8', 
       collate: 'utf8_general_ci',
     });
   }
 
   static associate(db) {
     db.User.hasMany(db.Post);
-    db.User.belongsToMany(db.User, {
+    db.User.belongsToMany(db.User, { // N:N관계, 팔로워
       foreignKey: 'followingId',
       as: 'Followers',
       through: 'Follow',
     });
-    db.User.belongsToMany(db.User, {
+    db.User.belongsToMany(db.User, { // 팔로잉
       foreignKey: 'followerId',
       as: 'Followings',
       through: 'Follow',
